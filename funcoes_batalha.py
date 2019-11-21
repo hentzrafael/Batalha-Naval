@@ -19,8 +19,13 @@ def imprime_tabuleiro(tab):#Junta as listas para ficar bonito
     print()
 #-----------Escolhe o nome do Player----------
 def nome_jogador():
-    jogador = input('Digite o nome do jogador: ')
-    return jogador
+    try:
+        jogador = input('Digite o nome do jogador: ')
+        if jogador.isnumeric():
+            raise TypeError
+        return jogador
+    except:
+        nome_jogador()
 
 #-----------Escolhe o par onde será feita a jogada--------------
 def escolhe_bloco_user(tab:list):
@@ -46,11 +51,17 @@ def desmonta(entrada:str):
 
 #----------------------Pega o input do usuário para o navio-----------------
 def navio(): 
-    try:
-        string_inicial = input('Digite a posição inicial e direção no formato x,x:D\n ')
-        return string_inicial
-    except:
-        pass
+        try:
+            string_inicial = input('Digite a posição inicial e direção no formato x,x:D\n ')
+            if string_inicial.isnumeric():
+                raise TypeError
+            elif string_inicial.isspace():
+                raise TypeError
+            elif string_inicial.isalpha():
+                raise TypeError
+            return string_inicial
+        except:
+            navio()
 
 #---------------Verifica se acertou algum dos navios---------------------------
 def acertou(log:list,linha:int,coluna:int):
@@ -162,7 +173,7 @@ def dificuldade():
         try:
             dif = int(input('1 para normal e 2 para impossível: '))
             if dif != 1 and dif != 2:
-                continue
+                raise TypeError
             return  dif
         except:
             print('Digite um valor válido')

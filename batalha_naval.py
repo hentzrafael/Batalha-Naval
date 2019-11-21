@@ -62,13 +62,17 @@ while jogo:
     #---------Começam as tentativas de acerto-------------------
     #Tentativa do user
     while True:
-        linha_jogada_user, coluna_jogada_user = funcao.escolhe_bloco_user(tabuleiro_computador)
-        if (linha_jogada_user,coluna_jogada_user) not in log_posicoes_jogadas_user:
-            tabuleiro_computador[linha_jogada_user][coluna_jogada_user] = '\u2B1B'
-            log_posicoes_jogadas_user.append((linha_jogada_user,coluna_jogada_user))
-            break
-        else:
+        try:
+            linha_jogada_user, coluna_jogada_user = funcao.escolhe_bloco_user(tabuleiro_computador)
+            if (linha_jogada_user,coluna_jogada_user) not in log_posicoes_jogadas_user:
+                tabuleiro_computador[linha_jogada_user][coluna_jogada_user] = '\u2B1B'
+                log_posicoes_jogadas_user.append((linha_jogada_user,coluna_jogada_user))
+                break
+            else:
+                continue
+        except IndexError:
             continue
+
 
     #-------------------Verifica se houve acerto do user---------------------------------
     if funcao.acertou(log_posicao_navios_computador,linha_jogada_user,coluna_jogada_user):
